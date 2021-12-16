@@ -3,6 +3,7 @@
 /node_modules
 .android/*
 .vscode
+.env
 
 # Logs
 logs

@@ -13,9 +13,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         type: 'mysql',
         host: 'localhost',
         port: 3306,
-        username: 'root',
-        password: 'root',
-        database: 'controleestoque',
+        username: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DATABASE,
         entities:[ProductsEntity]
     }),
     TypeOrmModule.forFeature([
