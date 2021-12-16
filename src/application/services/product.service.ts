@@ -1,24 +1,29 @@
+import { ProductsRepository } from './../../infrastructure/mysql/products.repository';
 import { ProductDTO } from './../../domains/dtos/productDTO.dto';
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ProductService {
+    constructor(
+        @InjectRepository(ProductsRepository)
+        private productsRepository:ProductsRepository
+    ){
+
+    }
     
     create(productName:string, productValue:string, productQuantity:number, productOwner:string){
-        let productDTO = new ProductDTO(productName, productValue, productQuantity, productOwner);
-        let product = productDTO.getProduct();
-        const sql = `INSERT INTO products(productName, productValue, productQuantity, productOwner) VALUES('${product.productName}', '${product.productValue}', '${product.productQuantity}', '${product.productOwner}')`;
-        console.log(sql);
+        let dto = new ProductDTO(productName, productValue, productQuantity, productOwner);
+        let productDTO = dto.getProduct();
+        return this.productsRepository.createProduct(productDTO.productName, productDTO.productValue, productDTO.productQuantity, productDTO.productOwner);
     }
 
     list(productId:number){
-        const sql = `SELECT * FROM products WHERE productId = ${productId}`;
-        console.log(sql);
+        return this.productsRepository.listOnlyOneProduct(productId);
     }
 
-    listAll(){
-        const sql = `SELECT * FROM products`;
-        console.log(sql);
+    listAll(){ 
+        return this.productsRepository.listAllProducts();
     }
 
     update(productName:string, productValue:string, productQuantity:number, productOwner:string, productId:number){
@@ -29,8 +34,7 @@ export class ProductService {
     }
 
     delete(productId:number){
-        const sql = `DELETE FROM products WHERE productId = ${productId}`;
-        console.log(sql);
+        return this.productsRepository.deleteProduct(productId);
     }
 
 }
