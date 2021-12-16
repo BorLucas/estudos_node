@@ -8,9 +8,7 @@ export class ProductService {
     constructor(
         @InjectRepository(ProductsRepository)
         private productsRepository:ProductsRepository
-    ){
-
-    }
+    ){}
     
     create(productName:string, productValue:string, productQuantity:number, productOwner:string){
         let dto = new ProductDTO(productName, productValue, productQuantity, productOwner);
@@ -27,10 +25,9 @@ export class ProductService {
     }
 
     update(productName:string, productValue:string, productQuantity:number, productOwner:string, productId:number){
-        let productDTO = new ProductDTO(productName, productValue, productQuantity, productOwner);
-        let product = productDTO.getProduct();
-        const sql = `UPDATE products SET productName = '${product.productName}', productValue = '${product.productValue}', productQuantity = '${product.productQuantity}', productOwner = '${product.productOwner}' WHERE productId = ${productId}`;
-        console.log(sql);
+        let dto = new ProductDTO(productName, productValue, productQuantity, productOwner);
+        let productDTO = dto.getProduct();
+        return this.productsRepository.updateProduct(productId, productDTO.productName, productDTO.productValue, productDTO.productQuantity, productDTO.productOwner);
     }
 
     delete(productId:number){
