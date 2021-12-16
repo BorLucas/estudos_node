@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("products")
 export class ProductsEntity{
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('increment')
     public productId:number;
 
     @Column({name:'productName', type:'varchar'})

@@ -13,7 +13,7 @@ export class ProductController {
 
   @Get('list/:productId')
   list(@Param() queryParams){
-    return this.productService.list(queryParams.productId);
+      return this.productService.list(queryParams.productId);
   }
 
   @Post()
