@@ -1,28 +1,33 @@
-import { ProductsEntity } from './domains/entitys/products.entity';
-import { ProductsRepository } from './infrastructure/mysql/products.repository';
-import { ProductService } from './application/services/product.service';
-import { ProductController } from './application/controllers/product.controller';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
+import { Connection } from 'typeorm';
+import { ProductsModule } from './products.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forRoot({
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
         type: 'mysql',
-        host: 'localhost',
-        port: 3306,
-        username: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DATABASE,
-        entities:[ProductsEntity]
+        host: configService.get('DB_HOST'),
+        port: configService.get('DB_PORT'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_DATABASE'),
+        entities: ['dist/**/*.entity{.ts,.js}'],
+        synchronize: false,
+      }),
+      inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([
-      ProductsRepository
-    ])
+    ScheduleModule.forRoot(),
+    ProductsModule,
   ],
-  controllers: [ProductController],
-  providers: [ProductService],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private connection: Connection) {}
+}

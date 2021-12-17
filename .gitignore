@@ -4,6 +4,7 @@
 .android/*
 .vscode
 .env
+.env
 
 # Logs
 logs
