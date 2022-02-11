@@ -31,6 +31,19 @@
 ```bash
 $ npm install
 ```
+## Creating Database
+```sql
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE `products` (
+  `productId` int NOT NULL AUTO_INCREMENT,
+  `productName` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `productValue` decimal(5,2) DEFAULT NULL,
+  `productQuantity` int DEFAULT NULL,
+  `productOwner` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`productId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+```
 
 ## Running the app
 
