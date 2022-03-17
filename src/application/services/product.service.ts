@@ -1,4 +1,4 @@
-import { ProductsRepository } from './../../infrastructure/mysql/products.repository';
+import { ProductsRepository } from '../../infrastructure/database/products.repository';
 import { ProductDTO } from './../../domains/dtos/productDTO.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
