@@ -1,4 +1,4 @@
-import { InternalErrorException } from './../errorHandlers/InternalServerError';
+import { InternalErrorException } from '../../errorHandlers/InternalServerError';
 import { UsersEntity } from './../../domains/entitys/users.entity';
 import { Injectable } from '@nestjs/common';
 import { EntityRepository, Repository } from "typeorm";

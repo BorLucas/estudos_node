@@ -1,6 +1,6 @@
-import { NotFoundException } from './../../infrastructure/errorHandlers/NotFound';
+import { NotFoundException } from '../../errorHandlers/NotFound';
 import { UsersRepository } from './../../infrastructure/database/users.repository';
-import { NotImplementedException } from './../../infrastructure/errorHandlers/NotImplemented';
+import { NotImplementedException } from '../../errorHandlers/NotImplemented';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as jwt from "jsonwebtoken";
 import md5 from "md5";
