@@ -1,3 +1,4 @@
+import { NotFoundException } from './../../errorHandlers/NotFound';
 import { ProductsRepository } from '../../infrastructure/database/products.repository';
 import { ProductDTO } from './../../domains/dtos/productDTO.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
@@ -17,23 +18,17 @@ export class ProductService {
     }
 
     async list(productId:number){
-        const result = await this.productsRepository.listOnlyOneProduct(productId);        
+        const result = await this.productsRepository.findOne(productId);        
         if(!result){
-            throw new HttpException({
-                status:HttpStatus.NOT_FOUND, 
-                error:`Product ID ${productId} not found`
-            }, HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Product not found");
         }
         return result;
     }
 
     async listAll(){
-        const result = await this.productsRepository.listAllProducts();
+        const result = await this.productsRepository.find();
         if(!result || result.length == 0){
-            throw new HttpException({
-                status:HttpStatus.NOT_FOUND, 
-                error:`No products found`
-            }, HttpStatus.NOT_FOUND);
+            throw new NotFoundException("No products found");
         }
         console.log(result);
         return result;
@@ -46,7 +41,7 @@ export class ProductService {
     }
 
     delete(productId:number){
-        return this.productsRepository.deleteProduct(productId);
+        return this.productsRepository.delete(productId);
     }
 
 }

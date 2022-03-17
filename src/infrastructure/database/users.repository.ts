@@ -29,9 +29,17 @@ export class UsersRepository extends Repository<UsersEntity>{
         }
     }
 
-    async findActiveUser(userName:string){
+    async findActiveUserbyUserName(userName:string){
         try{
             return this.findOne({userName:userName, userActive:1});
+        }catch(e){
+            throw new InternalErrorException(e.message);
+        }
+    }
+
+    async findActiveUserbyLogin(userLogin:string, userPassword:string){
+        try{
+            return this.findOne({userName:userLogin, userPassword:userPassword, userActive:1});
         }catch(e){
             throw new InternalErrorException(e.message);
         }

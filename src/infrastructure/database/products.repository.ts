@@ -14,23 +14,7 @@ export class ProductsRepository extends Repository<ProductsEntity>{
             product.productOwner = productOwner;
             return await this.save(product);
         }catch(e){
-            return e;
-        }
-    }
-
-    listAllProducts(){
-        try{
-            return this.find();
-        }catch(e){
-            return e;
-        }
-    }
-
-    listOnlyOneProduct(productId:number){
-        try{
-            return this.findOne({productId});
-        }catch(e){
-            return e;
+            return new Error(e);
         }
     }
 
@@ -42,14 +26,6 @@ export class ProductsRepository extends Repository<ProductsEntity>{
             product.productQuantity= productQuantity;
             product.productOwner = productOwner;
             return this.update(productId, product)
-        }catch(e){
-            return e;
-        }
-    }
-    
-    deleteProduct(productId:number){
-        try{
-            return this.delete(productId);
         }catch(e){
             return e;
         }

@@ -1,3 +1,4 @@
+import { BadRequestException } from './../../errorHandlers/BadRequest';
 import { HttpException, HttpStatus } from "@nestjs/common";
 
 export class ProductDTO{
@@ -15,20 +16,19 @@ export class ProductDTO{
 
     isValid(){
         if(!this.productName || this.productName == '' || this.productName == undefined){
-            throw new HttpException('Product Name is Required', HttpStatus.BAD_REQUEST);
+            throw new BadRequestException('Product Name is Required');
         }
         if(!this.productValue || this.productValue == '' || this.productValue == undefined){
-            throw new HttpException('Product Value is Required', HttpStatus.BAD_REQUEST);
+            throw new BadRequestException('Product Value is Required');            
         }
         if(!this.productQuantity || this.productQuantity == undefined){
-            throw new HttpException('Product Quantity is Required', HttpStatus.BAD_REQUEST);
+            throw new BadRequestException('Product Quantity is Required');
         }
         return true;
     }
 
     getProduct(){
-        const isValid = this.isValid();
-        if(isValid){
+        if(this.isValid()){
             return {
                 productName: this.productName,
                 productValue: this.productValue,
