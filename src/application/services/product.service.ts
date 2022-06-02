@@ -1,4 +1,4 @@
-import { NotFoundException } from './../../errorHandlers/NotFound';
+import { NotFoundException } from '../../infrastructure/errorHandlers/NotFound';
 import { ProductsRepository } from '../../infrastructure/database/products.repository';
 import { ProductDTO } from './../../domains/dtos/productDTO.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';

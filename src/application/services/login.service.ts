@@ -1,6 +1,6 @@
-import { NotFoundException } from '../../errorHandlers/NotFound';
+import { NotFoundException } from '../../infrastructure/errorHandlers/NotFound';
 import { UsersRepository } from './../../infrastructure/database/users.repository';
-import { NotImplementedException } from '../../errorHandlers/NotImplemented';
+import { NotImplementedException } from '../../infrastructure/errorHandlers/NotImplemented';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as jwt from "jsonwebtoken";
 import md5 from "md5";
@@ -27,7 +27,7 @@ export class LoginService {
             throw new NotFoundException('User not Found or Invalid Password');
         }
         var token = jwt.sign({ login, password }, this._secret);
-        return token
+        return `Bearer ${token}`;
     }
 
     async tokenValid(token:string){

@@ -1,4 +1,4 @@
-import { BadRequestException } from './../../errorHandlers/BadRequest';
+import { BadRequestException } from '../../infrastructure/errorHandlers/BadRequest';
 import { HttpException, HttpStatus } from "@nestjs/common";
 
 export class ProductDTO{
